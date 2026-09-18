@@ -4,22 +4,6 @@ import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 
-updateCheckoutQuantity()
-
-function updateCheckoutQuantity() {
-  let cartQuantity = 0;
-    cart.forEach(cartItem => {
-      cartQuantity += cartItem.quantity;
-    })
-    if (cartQuantity > 1) {
-        document.querySelector('.js-return-to-home-link')
-            .innerHTML = `${cartQuantity} Items`;
-    } else {
-        document.querySelector('.js-return-to-home-link')
-            .innerHTML = `${cartQuantity} Item`;
-    }
-};
-
 export function renderOrderSummary() {
     let cartSumarrayHTML = '';
 
