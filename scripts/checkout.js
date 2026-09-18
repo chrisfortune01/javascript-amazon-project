@@ -2,6 +2,8 @@ import { cart, removeFromCart } from "../data/cart.js ";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
+updateCheckoutQuantity()
+
 let cartSumarrayHTML = '';
 
 cart.forEach(cartItem => {
@@ -15,9 +17,7 @@ cart.forEach(cartItem => {
     });
     cartSumarrayHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
-        <div class="delivery-date">
-            Delivery date: Tuesday, June 21
-        </div>
+        <div class="delivery-date js-delivery-date"></div>
 
         <div class="cart-item-details-grid">
             <img class="product-image"
@@ -52,7 +52,7 @@ cart.forEach(cartItem => {
                 class="delivery-option-input"
                 name="delivery-option-${matchingProduct.id}">
                 <div>
-                <div class="delivery-option-date">
+                <div class="delivery-option-date js-7-days">
                     Tuesday, June 21
                 </div>
                 <div class="delivery-option-price">
@@ -65,7 +65,7 @@ cart.forEach(cartItem => {
                 class="delivery-option-input"
                 name="delivery-option-${matchingProduct.id}">
                 <div>
-                <div class="delivery-option-date">
+                <div class="delivery-option-date js-3-days">
                     Wednesday, June 15
                 </div>
                 <div class="delivery-option-price">
@@ -78,7 +78,7 @@ cart.forEach(cartItem => {
                 class="delivery-option-input"
                 name="delivery-option-${matchingProduct.id}">
                 <div>
-                <div class="delivery-option-date">
+                <div class="delivery-option-date js-1-day">
                     Monday, June 13
                 </div>
                 <div class="delivery-option-price">
@@ -98,7 +98,39 @@ cart.forEach(cartItem => {
             const productId = deleteButton.dataset.productId
             removeFromCart(productId);
             document.querySelector(`.js-cart-item-container-${productId}`).remove()
-            console.log(cart)
+            updateCheckoutQuantity()
         });
     });
+
+    document.querySelectorAll('.js-delivery-date').forEach(date => {
+        date.innerHTML = `Delivery date: ${dayjs().format('dddd, MMMM D')}`
+    })
+    document.querySelectorAll('.js-7-days').forEach(date => {
+        deliveryDate(7, date)
+    })
+    document.querySelectorAll('.js-3-days').forEach(date => {
+        deliveryDate(3, date)
+    })
+    document.querySelectorAll('.js-1-day').forEach(date => {
+        deliveryDate(1, date)
+    })
 })
+
+function deliveryDate(addedDays, date) {
+    let shippingDate = dayjs().add(addedDays,'day')
+        date.innerHTML = shippingDate.format('dddd, MMMM D')
+}
+
+function updateCheckoutQuantity() {
+  let cartQuantity = 0;
+    cart.forEach(cartItem => {
+      cartQuantity += cartItem.quantity;
+    })
+    if (cartQuantity > 1) {
+        document.querySelector('.js-return-to-home-link')
+            .innerHTML = `${cartQuantity} Items`;
+    } else {
+        document.querySelector('.js-return-to-home-link')
+            .innerHTML = `${cartQuantity} Item`;
+    }
+}
