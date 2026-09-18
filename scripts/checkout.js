@@ -1,6 +1,7 @@
 import { cart } from "../data/cart.js ";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 updateCheckoutQuantity()
+renderOrderSummary()
 
 function updateCheckoutQuantity() {
   let cartQuantity = 0;
@@ -15,4 +16,3 @@ function updateCheckoutQuantity() {
             .innerHTML = `${cartQuantity} Item`;
     }
 };
-renderOrderSummary()
