@@ -6,7 +6,7 @@ describe('test suite: addToCart', () => {
   });
 
   it('adds a new product to the cart', () => {
-    spyOn(localStorage, 'setItem').and.callFake(() => {});
+    spyOn(localStorage, 'setItem')
 
     spyOn(localStorage, 'getItem').and.callFake(() => JSON.stringify([]));
     console.log(localStorage.getItem('cart'))
