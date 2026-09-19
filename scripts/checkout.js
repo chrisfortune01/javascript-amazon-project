@@ -6,7 +6,7 @@ updateCheckoutQuantity()
 renderOrderSummary()
 renderPaymentSummary()
 
-function updateCheckoutQuantity() {
+export function updateCheckoutQuantity() {
   let cartQuantity = updateCartQuantity();
   if (cartQuantity > 1) {
     document.querySelector('.js-return-to-home-link')

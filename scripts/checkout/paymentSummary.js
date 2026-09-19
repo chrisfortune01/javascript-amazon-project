@@ -56,12 +56,5 @@ export function renderPaymentSummary() {
     </button>
   `;
 
-  document.querySelector('.js-payment-summary')
-    .innerHTML = paymentSummaryHTML
-
-  document.querySelectorAll('.js-delivery-option').forEach(element => {
-    element.addEventListener('click', () => {
-      renderPaymentSummary();
-    })
-  });
+  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML
 }
