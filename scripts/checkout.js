@@ -1,3 +1,4 @@
+import { updateCartQuantity } from "../data/cart.js";
 import { cart } from "../data/cart.js ";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
@@ -6,10 +7,7 @@ renderOrderSummary()
 renderPaymentSummary()
 
 function updateCheckoutQuantity() {
-  let cartQuantity = 0;
-  cart.forEach(cartItem => {
-    cartQuantity += cartItem.quantity;
-  })
+  let cartQuantity = updateCartQuantity();
   if (cartQuantity > 1) {
     document.querySelector('.js-return-to-home-link')
       .innerHTML = `${cartQuantity} Items`;
