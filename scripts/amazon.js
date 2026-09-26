@@ -1,9 +1,10 @@
 import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
-import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
+import { products, loadProducts } from "../data/products.js";
+// import { formatCurrency } from "./utils/money.js";
 
+loadProducts(renderProductsGrid);
 
-function renderAmazonHTML() {
+function renderProductsGrid() {
   let productsHTML = '';
 
   products.forEach(product => {
@@ -46,7 +47,7 @@ function renderAmazonHTML() {
         </div>
 
         ${product.extraInfoHTML()}
-        
+
         <div class="product-spacer"></div>
 
         <div class="added-to-cart">
@@ -68,12 +69,10 @@ function renderAmazonHTML() {
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCartQuantity();
-      renderAmazonHTML();
+      renderProductsGrid();
     });
   })
 
   document.querySelector('.js-cart-quantity')
     .innerHTML = updateCartQuantity()
 }
-
-renderAmazonHTML();

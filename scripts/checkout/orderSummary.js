@@ -115,5 +115,3 @@ export function renderOrderSummary() {
     })
   });
 }
-
-renderOrderSummary();
