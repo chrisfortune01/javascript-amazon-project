@@ -1,4 +1,4 @@
-import { updateCartQuantity } from "../data/cart.js";
+import { loadFromStorage, updateCartQuantity } from "../data/cart.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
@@ -6,8 +6,29 @@ import { loadCart } from "../data/cart.js";
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
+async function loadPage() {
+  await loadProductsFetch(); //Figure out why this doesn't work
+
+  await new Promise(resolve => {
+    loadCart(() => {
+      resolve();
+    })
+  })
+
+  updateCheckoutQuantity();
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+loadPage();
+
+/*
 Promise.all([
-  loadProductsFetch(),
+  // loadProductsFetch(),
+  new Promise(resolve => {
+    loadProducts(() => {
+      resolve();
+    })
+  }),
   new Promise(resolve => {
     loadCart(() => {
       resolve();
@@ -20,6 +41,7 @@ Promise.all([
   renderPaymentSummary();
   console.log(value)
 });
+*/
 
 /*
 new Promise(resolve => {
