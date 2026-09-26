@@ -1,14 +1,14 @@
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
 
   constructor(localStorageKey) {
-  this.localStorageKey = localStorageKey;
-  this.loadFromStorage();
+  this.#localStorageKey = localStorageKey;
+  this.#loadFromStorage();
   };
 
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [{
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity: 2,
       deliveryOptionId: '1'
@@ -19,8 +19,8 @@ class Cart {
     }];
   };
 
-  saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems))
+  #saveToStorage() {
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems))
   };
 
   addToCart(productId) {
@@ -40,7 +40,7 @@ class Cart {
         deliveryOptionId: '1'
       });
     };
-    this.saveToStorage();
+    this.#saveToStorage();
   };
 
   removeFromCart(productId) {
@@ -52,7 +52,7 @@ class Cart {
       }
     });
     this.cartItems = newCart;
-    this.saveToStorage();
+    this.#saveToStorage();
   };
 
   updateCartQuantity() {
@@ -72,7 +72,7 @@ class Cart {
       }
     });
     matchingItem.deliveryOptionId = deliveryOptionId;
-    this.saveToStorage();
+    this.#saveToStorage();
   }
 }
 
